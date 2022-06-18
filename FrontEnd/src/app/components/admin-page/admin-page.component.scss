@@ -1,0 +1,130 @@
+@import '../../../styles/config/config';
+.sidenav {
+    z-index: 100000;
+}
+.wrapper {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    box-shadow: $box-shadow;
+    min-height: 500px;
+    mat-sidenav-container {
+        height: 500px;
+        color: #222;
+    }
+   .sidenav{
+       position: absolute;
+       left: 5%;
+       top: -5%;
+       padding: 5px 10px;
+       box-shadow: $box-shadow;
+       opacity: 1;;
+       background-color: white;
+       &:hover {
+           color: red;
+           cursor: pointer;
+       }
+       
+   }
+   mat-side-nav {
+    padding: 10px;
+    box-shadow: $box-shadow;
+    width: 200px;
+    background-color: black;
+    min-height: 500px;
+    z-index: 100;
+    margin: 10px !important;
+
+}
+
+}
+
+mat-sidenav-content {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    width: auto;
+    box-shadow: $box-shadow;
+    min-height: 300px;
+    div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    
+    }
+    #form {
+    
+        min-width: 100%;
+    }
+    mat-card-header {
+        width: 100%;
+        @include flex-col;
+    }
+    mat-card-content {
+        width: 100%;
+        min-height: 300px;
+        form {
+            width: 100%;
+        }
+    }
+
+table {
+    width: 100%;
+}
+    
+
+
+}
+
+@include mediaMd{
+    .wrapper{
+        width: 100% !important; 
+    }
+ 
+
+}
+.houseWrapper {
+    justify-content: center;
+}
+
+mat-button-toggle-group{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.show {
+    display: block !important;
+}
+.hide {
+    display: none !important;
+}
+
+mat-card {
+    width: 100%;
+    mat-card-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .detailsWrapper {
+            width: 100%;
+            .eachDetail {
+                box-shadow: $box-shadow;
+                box-sizing: border-box;
+            }
+            .currentInfo{
+                 p{
+                    font-size: 15px;
+                }
+               display: flex !important;
+             
+               button {
+                   height: 40px !important;
+               }
+            }
+        }
+    }
+    div {
+        width: 100%;
+    }
+}

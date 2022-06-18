@@ -1,0 +1,398 @@
+<app-fetch-data (houses)="getHouses($event)"  >
+
+</app-fetch-data>
+<div class ="sidenav" *ngIf = "sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <div class="" *ngIf = "!sidenav.opened">
+        <mat-icon>menu</mat-icon>
+    </div>
+    <div class="" *ngIf = "sidenav.opened">
+        <mat-icon>close</mat-icon>
+
+    </div>
+
+ </div>
+<mat-sidenav-container>
+ 
+    <mat-sidenav #sidenav = "matSidenav">
+        <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>Profile</mat-card-title>
+             <p class="text-center text-secondary ">Name</p>  
+            </mat-card-header>
+
+  
+            <mat-card-content>
+     
+                <mat-button-toggle-group #toggler="matButtonToggleGroup" value="1">
+                    <mat-button-toggle value="1">
+                          Upload House
+                    </mat-button-toggle>
+                    <mat-button-toggle value="2">
+                         Your Uploads
+                    </mat-button-toggle >
+                    <mat-button-toggle value="3">
+                        Edit Profile
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </mat-card-content>
+          
+          </mat-card>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div id="form" class="wrapper" *ngIf = "toggler.value === '1'" >
+    
+            <mat-horizontal-stepper linear>
+                <div class="form">
+                <form  [formGroup]="uploadFormBasic" >
+               <mat-step label="BasicDetail" completed="{{firstCompleted}}">
+                   <h4 class="text-center p-3  text-light m-auto col-12 col-md-3 mb-3">Details </h4>
+               
+                   <div class="d-flex flex-column m-auto col-12 col-md-3 ">
+                   <mat-radio-group formControlName = "status" class="my-3">
+                       <p class=" text-light p-1 col-12 text-start col-12 col-md-4">Status</p>
+                       <mat-radio-button value="rent" [checked]="true">
+                            Rent
+                       </mat-radio-button>
+                       <mat-radio-button value="sale">
+                           Sale
+                      </mat-radio-button>
+               
+                   </mat-radio-group>
+                   <div [formGroup]="uploadFormBasic">
+                   <mat-radio-group formControlName = "purpose" class="my-3">
+                    <p class=" text-light p-1 col-12 text-start col-12 col-md-4">Purpose</p>
+                    <mat-radio-button value="living" [checked]="true">
+                         Living
+                    </mat-radio-button>
+                    <mat-radio-button value="bussiness">
+                        Bussiness
+                   </mat-radio-button>
+                   </mat-radio-group>
+                </div>
+        
+                <div [formGroup]="uploadFormBasic">
+                   <mat-radio-group formControlName = "type" class="d-flex flex-column my-2" (change)="onTypeChange($event.value)">
+                       <p class=" text-light p-1 col-12 text-start col-12 col-md-4">Type</p>
+               
+                       <mat-radio-button value="condominium" checked>
+                            Condominium
+                       </mat-radio-button>
+                       <mat-radio-button value="apartment">
+                           Apartment
+                      </mat-radio-button>
+                      <mat-radio-button value="villa">
+                       Villa
+                      </mat-radio-button>
+                      <mat-radio-button value="dorm">
+                       Dorm
+                      </mat-radio-button>
+               
+                   </mat-radio-group>
+                </div>
+                   <mat-form-field class="my-2">
+                       <mat-label>City</mat-label>
+                    <mat-select formControlName="city"  (selectionChange)="citySelectedFunc($event.value)">
+                        <mat-option value="Addis Ababa">
+                           Addis Ababa
+                        </mat-option >
+                        <mat-option value="Bahir Dar">
+                           Bahir Dar
+                        </mat-option>
+                        <mat-option value ="Hawassa">
+                           Hawassa
+                        </mat-option>
+                        <mat-option value ="Adama">
+                           Adama
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                    *ngIf="f.city.errors?.required">
+                    City is <strong>required</strong>
+                    </mat-error>
+                   </mat-form-field>
+                   <mat-form-field class="my-2" *ngIf = "citySelected">
+                   
+                       <mat-label>Location</mat-label>
+               
+                    <mat-select formControlName="location" (selectionChange)="locationSelectedFunc($event.value)" >
+               
+                        <div class="" *ngFor = "let i of locationToBeDisplayed">
+                        <mat-option value="{{i }}" >
+                           {{ i }}
+                        </mat-option >
+                       </div>
+                    </mat-select>
+                    <mat-error
+                    *ngIf="f.location.errors?.required">
+                    Location is <strong>required</strong>
+                    </mat-error>
+                   </mat-form-field>
+                   <button mat-raised-button matStepperNext class="col-12 col-md-4 " color="primary" (click)="stepOneCompleted()" [disabled]="uploadFormBasic.invalid ">Next</button>
+               </div>
+               </mat-step>
+               </form>
+            </div>
+               <form [formGroup]="uploadFormDetail">
+                   <mat-step label="OtherDetails" completed="{{secondCompleted}}">
+                    
+                    <h4 class="text-center p-3  text-light m-auto col-12 col-md-3 mb-3">Sub Details </h4>
+                    <div class="d-flex flex-column m-auto col-12 col-md-3 my-3" *ngIf = "!uploadFormBasic.invalid">
+               
+                            <div class="d-flex flex-column" *ngIf = "f.status.value == 'rent'" [formGroup]="uploadFormDetail">
+                               <mat-radio-group formControlName = "rentPlan" class="my-3 d-flex flex-column">
+                                   <p class=" text-light p-1 col-12 text-start col-12 ">Rental Payment(every)</p>
+                  
+                                   <mat-radio-button value="3 Months" [checked]="true">
+                                        3 Months
+                                   </mat-radio-button>
+                                   <mat-radio-button value="6 Months">
+                                      6 Months
+                                  </mat-radio-button>
+                                  <mat-radio-button value="1 year">
+                                   1 year
+                                   </mat-radio-button>
+                           
+                               </mat-radio-group>
+               
+                            </div>
+                            
+                           <div [ngSwitch]="f.type.value" class="my-2">
+               
+                       <ng-template #apartmentCondominium>
+                       <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                           <mat-label>Floor</mat-label>
+                           <input matInput required formControlName = "floor" type="number" />
+               
+                           <mat-error
+                           *ngIf="fDetail.floor.errors?.required">
+                           Floor is <strong>required</strong>
+                           </mat-error>
+                        </mat-form-field>
+               
+                        <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill" >
+                           <mat-label>Number Of Bed Rooms</mat-label>
+                                <mat-select (selectionChange)="bedRooms($event.value)" >
+                                   <mat-option value="0" >
+                                      0
+                                  </mat-option>
+                                  <mat-option value="1" >
+                                   1
+                               </mat-option>
+                                  <mat-option value="2" >
+                                   2
+                               </mat-option>
+                               <mat-option value="3" >
+                                   3
+                               </mat-option>
+                               <mat-option value="4" >
+                                   4
+                               </mat-option>
+                               <mat-option value="5" >
+                                   5
+                               </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+               
+               
+               
+                </ng-template>
+                               <div class="d-flex flex-column" *ngSwitchCase="'condominium'">    
+                                   <ng-container *ngTemplateOutlet="apartmentCondominium">
+                                   </ng-container>
+                               </div>
+                               <div class="d-flex flex-column" *ngSwitchCase="'apartment'">    
+                                   <ng-container *ngTemplateOutlet="apartmentCondominium">
+                                   </ng-container>
+                               </div>
+                               <div class="d-flex flex-column" *ngSwitchCase="'villa'">    
+                                   <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                                       <mat-label>Stairs</mat-label>
+                                       <input matInput required formControlName = "stairs" type="number" />
+                           
+                                       <mat-error
+                                       *ngIf="fDetail.stairs.errors?.required">
+                                       Floor is <strong>required</strong>
+                                       </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                                       <mat-label>Rooms</mat-label>
+                                       <input matInput required formControlName = "rooms" type="number" placeholder="number of rooms" (focusout)="rooms($event)" />
+                           
+                                       <mat-error
+                                       *ngIf="fDetail.rooms.errors?.required">
+                                       Rooms is <strong>required</strong>
+                                       </mat-error>
+                                    </mat-form-field>
+                                    <mat-checkbox formControlName="yard" class="my-2" (change)="yardChecked($event)">
+                                        <p class="p-2 text-light ">Does the house has Yard?</p> 
+                                    </mat-checkbox>
+                                    <mat-checkbox formControlName="pool" class="my-2" (change)="poolChecked($event)">
+                                        
+                                      <p class="p-2 text-light ">
+                                       The house has Swimming Pool?
+                                      </p> 
+               
+                                    </mat-checkbox>
+               
+                               </div>
+               
+                               <div class="d-flex flex-column" *ngSwitchCase="'dorm'"> 
+                                   <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                                       <mat-label>Area</mat-label>
+                                       <input matInput required formControlName = "area" type="text" placeholder="fill in meter * meter (5*5)"/>
+                           
+                                       <mat-error
+                                       *ngIf="fDetail.area.errors?.required">
+                                       Area is <strong>required</strong>
+                                       </mat-error>
+                                    </mat-form-field>
+                               </div>
+                            </div>
+                            <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                               <mat-label>Price</mat-label>
+                               <input matInput required formControlName = "price" type="number" placeholder="per month for rent" />
+                   
+                               <mat-error
+                               *ngIf="fDetail.price.errors?.required">
+                               Price is <strong>required</strong>
+                               </mat-error>
+                            </mat-form-field>
+                
+                       <button matStepperNext  mat-raised-button class="col-12 col-md-4 " color="primary" (click)="stepTwoCompleted($event)" [disabled]="uploadFormDetail.invalid ">Next</button>
+                        </div>
+               
+                    </mat-step>
+               
+               </form>
+               <form [formGroup]="uploadFormUpload" enctype="multipart/form-data">
+               <mat-step label="UploadSection"  >
+                <h4 class="text-center p-3  text-light m-auto col-12 col-md-3 mb-3">Upload Images </h4>
+                <ng-template #imageDisplay>
+                    <div class="img" *ngIf = "imgSrc">
+                        <img [src]="imgSrc" alt="">
+                    </div>
+                </ng-template>
+            
+                <div class="d-flex flex-column m-auto col-12 col-md-3 my-3" *ngIf = "!uploadFormBasic.invalid &&  !uploadFormDetail.invalid ">
+                    <div class="imageContainer my-2" *ngIf="imageDisplayer == 'frontImage'" >
+                        <ng-container *ngTemplateOutlet="imageDisplay">
+                        </ng-container>
+                    </div>
+                    <div class="form-group my-2">`
+                        <label for="exampleInputEmail1">Front Image</label>
+                        <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(-1, 'frontImage', $event)">
+                     </div>  
+                     <div class="imageContainer my-2" *ngIf="imageDisplayer == 'livingRoom'" >
+                        <ng-container *ngTemplateOutlet="imageDisplay">
+                        </ng-container>
+                    </div>
+                     <div class="form-group my-2">
+                           <label for="exampleInputEmail1">Living Room</label>
+                            <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(-1, 'livingRoom', $event)">
+                     </div>    
+                     <div class="imageContainer my-2" *ngIf="imageDisplayer == 'yard'" >
+                        <ng-container *ngTemplateOutlet="imageDisplay">
+                        </ng-container>
+                    </div>
+                     <div class="form-group my-2" *ngIf = "yard">
+                        <label for="exampleInputEmail1">Yard </label>
+                         <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(-1, 'yard', $event)">
+                      </div>  
+                      <div class="imageContainer my-2" *ngIf="imageDisplayer == 'pool'" >
+                        <ng-container *ngTemplateOutlet="imageDisplay">
+                        </ng-container>
+                    </div>
+                     <div class="form-group my-2" *ngIf = "pool">
+                        <label for="exampleInputEmail1">Pool</label>
+                         <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(-1, 'pool', $event)">
+                      </div>  
+                    <div class="d-flex flex-column" *ngIf = "houseTypeSelected === 'apartment' || houseTypeSelected === 'condominium' " >
+                        
+                        
+                        <div class="form-group mt-2" *ngFor="let i of createRange(uploadableSize)" >
+                           
+                            <div class="imageContainer my-2" *ngIf="imageDisplayer == i" >
+                                <ng-container *ngTemplateOutlet="imageDisplay">
+                                </ng-container>
+                            </div>
+                            <label for="exampleInputEmail1">Bed Room {{ i }}</label>
+                            <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(i, i, $event)">
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column" *ngIf = "houseTypeSelected === 'villa'">
+                       
+            
+                            <div class="form-group mt-2" *ngFor="let i of createRange(uploadableSize)">
+                                <div class="my-2">
+                                    <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill" >
+                                        <mat-label>Room Type</mat-label>
+                                             <mat-select (selectionChange)="roomType($event.value, i)" >
+                                              <mat-option value="Master Bed Room" >
+                                                Master Bed Room
+                                               </mat-option>
+                                               <mat-option value="Kids Bed Room" >
+                                                Kids Bed Room 
+                                               </mat-option>
+                                               <mat-option value="Guest Bed Room" >
+                                                  Guest Bed Room
+                                               </mat-option>
+                                               <mat-option value="Kitchen" >
+                                                Kitchen
+                                               </mat-option>
+                                               <mat-option value="Toilet" >
+                                                Toilet
+                                               </mat-option>
+                                              <mat-option value="Salon" >
+                                                Salon
+                                               </mat-option>
+                                               <mat-option value="Study Room" >
+                                                Study Room
+                                               </mat-option>
+                                               <mat-option value="Dining Room" >
+                                                Dining Room 
+                                               </mat-option>
+                                             </mat-select>
+                                     </mat-form-field>
+                                </div>
+                                <div class="imageContainer my-2" *ngIf="imageDisplayer == i" >
+                                    <ng-container *ngTemplateOutlet="imageDisplay">
+                                    </ng-container>
+                                </div>
+                                <div class="form-group">
+                                <input type="file" class="form-control" placeholder="choose image" (change)="onAddImage(i, 'roomsImage', $event)">
+                                </div>  
+                            </div>
+                       
+                         
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3" (click)="onSubmitAll()">Submit</button>
+                       </div>
+                </mat-step>
+                
+               </form>
+                   </mat-horizontal-stepper>
+                
+                    
+        </div>
+        <div *ngIf = "toggler.value === '2'">
+
+            <div class="content">
+                <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf ="userHouses.length !== 0">
+                  <div fxFlex= "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor = "let house of userHouses">
+                    <app-each-house [house]="house" [renter]="renter">
+                    </app-each-house>
+                  </div>
+                </div>
+          </div>
+        </div>
+        <div   *ngIf = "toggler.value === '3'">
+
+            <p>Profile's page</p>
+
+        </div>
+
+
+               
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>

@@ -1,0 +1,72 @@
+<div class="center" (window:resize)="onResize($event)">
+
+<div class="col-md-6 col-12">
+<mat-card class="mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title>For {{house.status | titlecase}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="images[0]">
+
+
+</mat-card>
+</div>
+<div *ngIf = "!details">  
+<div class="tooglerDescription" (click) = "detail()">
+  <mat-icon>lists</mat-icon>
+  </div>
+</div>
+<div class="description" [ngStyle]="{'display': details  ? 'block': 'none' }">
+  <div *ngIf = "details || (screenWidth > 789)">  
+  <div class="tooglerDescriptionX"  (click) = "detail()">
+   
+      <mat-icon>close</mat-icon>
+    </div>
+  
+  </div>
+  <div class="content">
+
+  <mat-card class="mat-elevation-z4">
+    <mat-card-header>
+      <mat-card-title>For {{house.status | titlecase}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        City - <span>{{ house.type | titlecase}}</span>  
+      </p>
+      <p>
+        City- <span>{{ house.city | titlecase}}</span>  
+      </p>
+      <p>
+        Location - <span>{{ house.location | titlecase}}</span>  
+      </p>
+      <p>
+        Price - <span>{{ house.price }}</span>  
+      </p>
+      <p>
+       Phone - <span>{{ house.phoneRenter | titlecase}}</span>  
+      </p>
+    
+  
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" class="text-light" (click)="rentHouse()" [disabled]="status === 'Accepted' || status === 'Requested'">Rent</button>
+      <div class="" *ngIf = "status === 'Requested'">
+      <p class=" p-3 text-warning  my-2 ">
+        Rent Request Sent before waiting for the Renter's response
+      </p>
+    </div>
+    <div class="" *ngIf = "status === 'Accepted'">
+      <p class="text-warning p-3 bg-secondary my-2 ">
+        House Rented 
+      </p>
+    </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+</div>
+</div>
+
+<app-fetch-data (rentRecords)="rentRecords($event)" >
+
+</app-fetch-data>

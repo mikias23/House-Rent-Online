@@ -1,0 +1,80 @@
+@import '../../../styles/config/config';
+
+img {
+    height: 350px;
+}
+.center {
+    position: relative;
+    @include flex-row;
+    margin-top: 40px;
+    div {
+        margin-right: 20px;
+    }
+    .tooglerDescription, .tooglerDescriptionX{
+        display: none;
+    }
+}
+
+@include mediaLg{
+    .description {
+        display: block !important;
+    }
+}
+@include mediaMd{
+    .tooglerDescription, .tooglerDescriptionX {
+        display: block !important;
+        position: absolute;
+        color: red;
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+       box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+            &:hover {
+                cursor: pointer;
+            }
+    }
+    .tooglerDescription{
+        top: -5%;
+        left: 0%;
+    }
+    .tooglerDescriptionX{
+        z-index: 10;
+        top: 0%;
+    right: 0%;
+    }
+    
+    .description {
+        position: absolute;
+        left: -5%;
+        top: 0%;
+        
+        
+    }
+    .center {
+        @include flex-col;
+    }
+    .wrapper {
+       padding: 0;
+    }
+    h4 {
+        font-size: $font-sub-title-md;
+        
+    }
+}
+
+.content {
+ 
+    mat-card {
+        background-color: #222;
+    color: white ;
+    }
+}
+
+mat-card-actions {
+    max-width: 250px;
+}
+button:hover {
+
+    font-weight: 600;
+}

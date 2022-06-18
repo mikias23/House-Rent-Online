@@ -1,0 +1,23 @@
+@import '../../../styles/config/config';
+
+
+
+.form {
+    width: 70%;
+    margin: auto;
+    mat-card {
+        @include flex-col;
+        mat-form-field {
+            width: 50%;
+        }
+    }
+  
+}
+@include mediaMd {
+    .form {
+        width: 100%;
+        mat-form-field {
+            width: 100% !important;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@import '../../../styles/config/config';
+
+form {
+    padding: 50px 20px !important;
+
+    width: 30%;
+    min-height: 50vh;
+    margin: 100px auto;
+ mat-card {
+    @include flex-col;
+    
+ }
+
+    
+}
+@include mediaMd{
+    form {
+        padding: 20px;
+        width: 70% !important;
+        margin: 50px auto;
+        
+    }
+}
+@include mediaSm{
+    form {
+        width: 100% !important;
+        margin: 100px auto;
+        
+    }
+}

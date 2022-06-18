@@ -1,0 +1,17 @@
+<app-fetch-data (houses)="getHouses($event)">
+
+</app-fetch-data>
+
+
+<div class="content">
+  
+  <div class="slider right" (click)="slideRight()"><mat-icon>arrow_right_alt</mat-icon></div>
+  <div class="slider left"  (click)="slideLeft()"><mat-icon>arrow_right_alt</mat-icon></div>
+
+        <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf ="houses.length !== 0">
+          <div fxFlex= "25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor = "let house of houses">
+            <app-each-house [house]="house">
+            </app-each-house>
+          </div>
+        </div>
+  </div>

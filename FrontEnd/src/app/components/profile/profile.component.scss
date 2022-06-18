@@ -1,0 +1,114 @@
+@import '../../../styles/config/config';
+
+
+mat-sidenav-container{
+
+    min-height: 90vh;
+ 
+}
+mat-radio-button {
+    margin-right: 20px ;
+}
+mat-sidenav-content {
+    min-width: 80%;
+margin-left: 20px;
+display: flex;
+justify-content: center;
+ box-shadow: $box-shadow;
+ min-height: 600px;
+}
+.img{
+    position: relative;
+  
+    height: 200px;
+}
+img {
+    position: absolute;
+    width: 100%;
+    height:200px;
+}
+mat-form-field {
+    margin: 10px 0;
+}
+h4 {
+
+    font-size: $font-sub-title;
+    border: 1px solid white;
+}
+
+mat-sidenav{
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    color: #222;
+    background-color: white;
+    padding: 16px;
+    text-align: center;
+
+}
+.sidenav {
+    box-shadow: $box-shadow;
+    padding: 10px; 
+    margin: 5px;
+    width: 70px;
+    text-align: center
+
+}
+.sidenav:hover {
+    cursor: pointer;
+color: black}
+mat-button-toggle-group{
+    @include flex-col;
+    border: none;
+    align-items: flex-start !important;
+    mat-button {
+border: none;
+    }
+}
+
+
+.wrapper {
+    background: $bg-light;
+    width: 100%;
+    padding: 10px;
+}
+
+mat-horizontal-stepper {
+    background: $bg-cyan;
+  mat-label {
+      color: white;
+  }
+  mat-radio-button{
+      color: white;
+  }
+  p, label {
+border-bottom: 1px solid white;  
+color: $bg-complement !important;}
+}
+label {
+    margin-bottom: 10px;
+}
+@include mediaMd{
+    .wrapper {
+       padding: 0;
+    }
+    h4 {
+        font-size: $font-sub-title-md;
+        
+    }
+}
+@include mediaSm {
+    h4 {
+        font-size: $font-sub-title-sm !important;
+        
+    }
+    p{
+        font-size: $font-paragraph-sm !important;
+  
+
+    }
+    mat-label, mat-radio-button {
+        font-size: $font-paragraph-sm !important;
+    }
+  
+}

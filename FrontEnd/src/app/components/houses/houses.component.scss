@@ -1,0 +1,48 @@
+@import '../../../styles/config/config';
+
+.content {
+    padding: 30px 20px;
+    position: relative;
+}
+.slider {
+    display: flex;
+    position: absolute ;
+    width: 50px;
+    height: 30px;
+    padding: 5px 10px;
+    box-shadow: $box-shadow;
+    top: 50%;
+     z-index: 1000;
+     background-color: white;
+    transform: translateY(-50%);
+    &:hover {
+        color: white;
+        background: black;
+        cursor: pointer;
+    }
+   
+}
+.left {
+    left: 0%;
+    mat-icon {
+        transform:rotateZ(180deg);
+
+    }
+
+}
+.right {
+    right: 0%;
+}
+@include mediaMd {
+    .slider {
+        margin: 20px 0;
+        top: 100% !important;
+
+    }
+    .left {
+        left: 20%;
+    }
+    .right {
+        right: 20%;
+    }
+}

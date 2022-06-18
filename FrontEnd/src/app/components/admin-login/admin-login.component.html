@@ -1,0 +1,49 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <div class="mb-3 lighterBg">
+        <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title><p class="mx-2"> <span [ngClass]= "{'z-index': -1}"><mat-icon >account_box</mat-icon></span> Admin Login </p>
+              </mat-card-title>
+                
+            </mat-card-header>
+
+            <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                <mat-label color="accent">Username</mat-label>
+                <input matInput required formControlName = "username" type="text" />
+                <mat-error *ngIf="f.username.errors?.minlength && !f.username.errors?.required ">
+                Please enter at least an 8 character username
+                </mat-error>
+                <mat-error
+                *ngIf="f.username.errors?.required">
+                Username is <strong>required</strong>
+                </mat-error>
+    
+             </mat-form-field>
+             <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                <mat-label>Password</mat-label>
+                <input formControlName = "password"  type = "password" matInput required />
+                <mat-error *ngIf="f.password.errors?.minlength && !f.password.errors?.required">
+             The password  must be atleast 8 character long
+                </mat-error>
+            
+                <mat-error
+                *ngIf="f.password.errors?.required">
+                Password is <strong>required</strong>
+                </mat-error>
+               </mat-form-field>
+            <mat-card-content>
+                <button type="submit" class="btn btn-primary">Login</button>
+    <div class="my-3 form-check d-flex justify-content-between">
+        <a href="#" class="mx-2">Forgot Password</a>
+      </div>
+            </mat-card-content>
+          
+          </mat-card>
+    
+    </div>
+
+
+
+
+  </form>

@@ -1,0 +1,114 @@
+@import '../../../styles/config/config';
+
+*{
+    box-sizing: border-box !important;
+}
+.hamCustom{
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    display: none;
+}
+#delete {
+      color:red;
+}
+.header{
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: $box-shadow;
+    @include flex-row;
+    justify-content: space-between !important;
+    h4 {
+        a{
+            color: black;
+            padding: 10px 20px;
+            font-size: 16px !important;
+            font-weight: 400;
+            box-shadow: 5px 5px 5px rgba($color: #000000, $alpha: 0.1);
+            border-radius: 5px;
+   
+        }
+
+    }
+    #links ul {
+        @include flex-row;
+
+        li{
+            margin-right: 30px;
+            &:hover {
+                
+                border-bottom: 1px solid #444;
+                a {
+                    color: black;
+                }
+            }
+            a {
+                color: #444;
+
+            ;
+            }
+        }
+    }
+}  
+
+
+
+
+
+@include mediaMd{
+    .hamCustom{
+      
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        box-shadow: 5px 5px 5px rgba($color: #000000, $alpha: 0.1);
+        span{
+            width: 20px;
+            height: 2px;
+            margin: 2px;
+            background-color: black
+        }
+        &:hover {
+            cursor: pointer;
+
+            span {
+                background-color: gray;
+            }
+        }
+    }
+    .header{
+        @include flex-col;
+        align-items: flex-start;
+        div {
+            margin-bottom: 20px;
+        }
+    }
+    #links {
+        display: none;
+
+    }
+    .show {
+        display:  flex !important;
+    }
+    #links ul {
+
+       display: flex !important;
+       flex-direction: column !important;
+        align-items: flex-start !important;
+     
+         li
+         {
+            border: 1px solid rgb(255, 255, 255) !important;
+
+             &:hover {
+                border-bottom: 1px solid #444 !important;
+
+             }
+         }
+
+
+    }
+
+}

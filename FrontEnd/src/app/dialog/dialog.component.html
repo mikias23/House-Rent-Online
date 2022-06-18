@@ -1,0 +1,68 @@
+
+
+<form [formGroup]="rentInfo" (ngSubmit)="submitForm()">
+    <div class="tooglerDescriptionX"   mat-dialog-close="false" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </div>
+
+        <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>Rent Form</mat-card-title>
+            </mat-card-header>
+           <div class="d-flex flex-column">
+             <div class="my-2">
+            <mat-radio-group formControlName = "rentPlan" class="my-3">
+              <p class=" text-secondary p-1 col-12 text-start col-12 col-md-4">Rent Plan</p>
+              <mat-radio-button value="3 Months" [checked]="true">
+                   3 Months
+              </mat-radio-button>
+              <mat-radio-button value="6 Months">
+                  6 Months
+             </mat-radio-button>
+             <mat-radio-button value="12 Months">
+                  12 Months
+         </mat-radio-button>
+          </mat-radio-group>
+        </div>
+            <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                <mat-label color="accent">Client Phone</mat-label>
+                <input matInput formControlName = "clientPhone"  type="text" placeholder="0910773382"/>
+                <mat-error *ngIf="f.clientPhone.errors?.minlength && f.clientPhone.errors?.maxlength && !f.clientPhone.errors?.required">
+                  Phone must be 10 digits
+                  </mat-error>
+                <mat-error
+                *ngIf="f.clientPhone.errors?.required">
+                Floor is <strong>required</strong>
+                </mat-error>
+             </mat-form-field>
+             <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                <mat-label>Start Date</mat-label>
+                <input  matInput [matDatepicker]="myDatePicker" [min] ="min" 
+                [max]="max" (dateChange)="onDateChange($event)" formControlName="dateStart">
+                <mat-datepicker-toggle [for]="myDatePicker" matSuffix></mat-datepicker-toggle>
+                 <mat-datepicker #myDatePicker>
+
+                 </mat-datepicker>
+               </mat-form-field>
+               <mat-form-field floatLabel = "auto" hideRequiredMarker appearance="fill">
+                <mat-label>End Date</mat-label>
+                <input  matInput [matDatepicker]="myDatePickers" formControlName="dateEnd">
+                <mat-datepicker-toggle   [disabled]="true"  [for]="myDatePickers" matSuffix></mat-datepicker-toggle>
+                 <mat-datepicker #myDatePickers>
+
+                 </mat-datepicker>
+               </mat-form-field>
+           </div>
+
+            <mat-card-content>
+    <div class="my-3 form-check d-flex justify-content-between">
+        <button mat-raised-button type="submit" [disabled]="rentInfo.invalid">Submit</button>
+        <button mat-raised-button  (click)="close()">Cancel</button>
+
+      </div>
+            </mat-card-content>
+          
+          </mat-card>
+    
+    
+  </form>

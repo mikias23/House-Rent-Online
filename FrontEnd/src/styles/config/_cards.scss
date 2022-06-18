@@ -1,0 +1,29 @@
+@mixin form {
+    background-color: $bg-cyan;
+    color: $txt-light;
+    padding: 20px !important;
+    border-radius: 10px;
+
+    @include flex-col;
+    
+    .subTitle {
+        font-size:16px !important;
+        color: $title-color;
+    }
+    .lighterBg {
+        background-color:$bg-light;
+        padding: 0px 20px;
+        @include flex-row ;
+        border-radius: 5px;
+    }
+    .title {
+        font-size:24px !important;
+        color: $title-color;
+
+    }
+    &div {
+        @include flex-col-start;
+    }
+
+    
+}
